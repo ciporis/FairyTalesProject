@@ -24,20 +24,13 @@ public class BookView : MonoBehaviour
 
     private IEnumerator OpenBook()
     {
-        float animationLength = _animator.GetCurrentAnimatorClipInfo(0).Length;
-
-        while(true)
+        if (_isReadyToOpen)
         {
-            if (_isReadyToOpen)
-            {
-                _animator.SetTrigger(_openTrigger);
-                yield return new WaitForSeconds(animationLength);
-                //SceneManager.LoadScene(_fairyTaleSceneNumber);
-                Debug.Log("Scene is Loading");
-                _isReadyToOpen = false;
-            }
-            yield return null;
+            _animator.SetTrigger(_openTrigger);
+            //float animationLength = _animator.GetCurrentAnimatorClipInfo(0).Length;
+            yield return new WaitForSeconds(2.35f);
+            SceneManager.LoadScene(_fairyTaleSceneNumber);
+            _isReadyToOpen = false;
         }
-        
     }
 }
