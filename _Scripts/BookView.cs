@@ -1,28 +1,43 @@
+using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BookView : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private int _fairyTaleSceneNumber;
-    [SerializeField] private BookOpener _bookOpener;
-
-    [SerializeField] private BoxCollider _bookOpenerCollider;
 
     private bool _isReadyToOpen;
     private string _openTrigger = "Open";
 
     private void Update()
     {
-        if(transform.position.x == Mathf.Clamp(transform.position.x, -5f, 3.55f))
+        if(transform.position.x == Mathf.Clamp(transform.position.x, -4.01f, 4.03f))
             _isReadyToOpen = true;
     }
 
     private void OnMouseUpAsButton()
     {
-        if(_isReadyToOpen)
+        StartCoroutine(OpenBook());
+    }
+
+    private IEnumerator OpenBook()
+    {
+        float animationLength = _animator.GetCurrentAnimatorClipInfo(0).Length;
+
+        while(true)
         {
-            _animator.SetTrigger(_openTrigger);
-            _isReadyToOpen = false;
+            if (_isReadyToOpen)
+            {
+                _animator.SetTrigger(_openTrigger);
+                yield return new WaitForSeconds(animationLength);
+                //SceneManager.LoadScene(_fairyTaleSceneNumber);
+                Debug.Log("Scene is Loading");
+                _isReadyToOpen = false;
+            }
+            yield return null;
         }
+        
     }
 }
