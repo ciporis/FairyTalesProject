@@ -165,6 +165,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 248699481}
     m_Modifications:
     - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _openZone
+      value: 
+      objectReference: {fileID: 1458310338}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _pageSwiper
+      value: 
+      objectReference: {fileID: 1741865131}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _openZoneCords
+      value: 
+      objectReference: {fileID: 1458310336}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: _fairyTaleSceneNumber
       value: 3
       objectReference: {fileID: 0}
@@ -343,6 +355,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 248699481}
     m_Modifications:
     - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _openZone
+      value: 
+      objectReference: {fileID: 1458310338}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _pageSwiper
+      value: 
+      objectReference: {fileID: 1741865131}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _openZoneCords
+      value: 
+      objectReference: {fileID: 1458310336}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: _fairyTaleSceneNumber
       value: 2
       objectReference: {fileID: 0}
@@ -504,6 +528,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 248699481}
     m_Modifications:
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _openZone
+      value: 
+      objectReference: {fileID: 1458310338}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _pageSwiper
+      value: 
+      objectReference: {fileID: 1741865131}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _openZoneCords
+      value: 
+      objectReference: {fileID: 1458310336}
     - target: {fileID: 2633745520861027226, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: m_Name
       value: Book (0)
@@ -699,9 +735,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1458310336}
   - component: {fileID: 1458310338}
-  - component: {fileID: 1458310337}
   m_Layer: 0
-  m_Name: BookOpeningZone
+  m_Name: BookOpenningZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,18 +757,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1458310337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458310334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd19e2be75e5be84ba32805a7956c882, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1458310338
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -745,8 +768,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.453518, y: 5.834724, z: 2.4713886}
-  m_Center: {x: 0.7300043, y: 0.38583255, z: 0.73569405}
+  m_Size: {x: 2.9645424, y: 5.5509253, z: 2.4713886}
+  m_Center: {x: 0.79951715, y: 0.37527514, z: 0.73569405}
 --- !u!1 &1490739865
 GameObject:
   m_ObjectHideFlags: 0
