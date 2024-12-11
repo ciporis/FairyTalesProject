@@ -1,13 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BookManager : MonoBehaviour
 { 
-    public int PagesCount { get; private set; }
-
     public Sprite[] Slides;
-    
-    public string[] Sentences =
+
+    [NonSerialized] public string[] Sentences =
     {
         "Каждый день Юсуф после школы ходит в мечеть на уроки, где получает религиозные знания.",
         "Ему очень нравится учиться в мечети, ведь учитель на каждом уроке рассказывает им что-то интересное. А еще он им дарит подарки.",

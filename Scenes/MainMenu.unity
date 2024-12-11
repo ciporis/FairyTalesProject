@@ -178,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 1458310336}
     - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: _fairyTaleSceneNumber
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2633745520861027226, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: m_Name
@@ -368,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 1458310336}
     - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: _fairyTaleSceneNumber
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2633745520861027226, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: m_Name
@@ -540,6 +540,10 @@ PrefabInstance:
       propertyPath: _openZoneCords
       value: 
       objectReference: {fileID: 1458310336}
+    - target: {fileID: 633301805, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
+      propertyPath: _fairyTaleSceneNumber
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2633745520861027226, guid: daf839e02f5ec714193d674feb0254ac, type: 3}
       propertyPath: m_Name
       value: Book (0)
@@ -768,8 +772,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.9645424, y: 5.5509253, z: 2.4713886}
-  m_Center: {x: 0.79951715, y: 0.37527514, z: 0.73569405}
+  m_Size: {x: 1.6918755, y: 5.609037, z: 2.497261}
+  m_Center: {x: 0.7495109, y: 0.37527514, z: 0.73569405}
 --- !u!1 &1490739865
 GameObject:
   m_ObjectHideFlags: 0
