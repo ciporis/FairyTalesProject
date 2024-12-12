@@ -5,7 +5,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     [SerializeField] private Transform _objectHolder;      // The parent GameObject containing 3D objects
     [SerializeField] private float _objectSpacing = 10f;   // Distance between objects along the X-axis
-    [SerializeField] private float _snapSpeed = 1f;      // Speed for snapping back to position
+    [SerializeField] private float _snapSpeed = 0.5f;      // Speed for snapping back to position
     private float _targetPositionX;     // Target X position of the objectHolder
     private bool _isDragging = false;   // Indicates whether the user is currently dragging
 
