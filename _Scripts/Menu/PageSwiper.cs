@@ -9,12 +9,12 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     private float _targetPositionX;     // Target X position of the objectHolder
     private bool _isDragging = false;   // Indicates whether the user is currently dragging
 
-    void Start()
+    private void Awake()
     {
         _targetPositionX = _objectHolder.position.x; // Initialize the target position
     }
 
-    void Update()
+    private void Update()
     {
         if (!_isDragging)
         {

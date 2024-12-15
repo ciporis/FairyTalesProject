@@ -1,13 +1,17 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SettingsButton : MonoBehaviour
+public class SettingsButtonHandler : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
     private string _clickTrigger = "Click";
 
-    public void PlayAnimation()
+    public void HandleClick()
+    {
+        PlayAnimation();
+    }
+
+    private void PlayAnimation()
     {
         _animator.SetTrigger(_clickTrigger);
     }

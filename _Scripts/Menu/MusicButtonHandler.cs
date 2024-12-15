@@ -1,31 +1,34 @@
 using UnityEngine;
 
-public class MusicButton : MonoBehaviour
+public class MusicButtonHandler : MonoBehaviour
 {
     [SerializeField] private AudioSource _music;
+    [SerializeField] private ScriptableObject _mainMenuSettings;
+
+    private bool _musicState;
 
     public void HandleClick()
     {
-        if (Settings.MusicCondition == true)
+        if (_musicState)
         {
             TurnOffMusic();
         }
         else
         {
             TurnOnMusic();
-        }
+        }   
     }
 
     private void TurnOnMusic()
     {
         _music.Play();
-        Settings.MusicCondition = true;
+        
     }
 
     private void TurnOffMusic()
     {
         _music.Stop();
-        Settings.MusicCondition = false;
+        
     }
 
 }
