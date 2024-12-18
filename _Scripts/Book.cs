@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 public class Book : MonoBehaviour
 {
     [SerializeField] private BookView _bookView;
-    [SerializeField] private string _fairyTaleName;
 
+    public string PrefabFairyTaleName;
 
     private void OnEnable()
     {
@@ -19,6 +18,6 @@ public class Book : MonoBehaviour
 
     private void SetFairyTaleName()
     {
-        BookData.FairyTaleName = _fairyTaleName;
+        BookData.FairyTaleName = PrefabFairyTaleName;
     }
 }

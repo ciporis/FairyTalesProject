@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Windows;
 
 [CreateAssetMenu(menuName = "Configs/FairyTaleConfig", fileName = "FairyTaleConfig")]
 public class FairyTaleConfig : ScriptableObject

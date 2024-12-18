@@ -17,7 +17,6 @@ public class FairyTaleView : MonoBehaviour
 
     private string[] _sentences;
     private Sprite[] _slides;
-
     private void Awake()
     {
         _buttonNext.onClick.AddListener(NextSlide);

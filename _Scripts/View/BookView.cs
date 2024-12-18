@@ -7,8 +7,9 @@ public class BookView : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private Collider _openZone;
-    [SerializeField] private Transform _openZoneCords;
-    [SerializeField] private PageSwiper _pageSwiper;
+    [SerializeField] private RectTransform _openZoneCords;
+    [SerializeField] private SnapScroller _scroller;
+    [SerializeField] private RectTransform _rectTransform;
 
     private string _openTrigger = "Open";
     private bool _isReadyToOpen = false;
@@ -21,16 +22,16 @@ public class BookView : MonoBehaviour
 
     public event Action BookOpened;
 
-    private void Awake()
+    private void Awake()    
     {
-        _distanceToBound = _openZone.bounds.size.x / 2;
-        _rightBoundX = _openZoneCords.position.x + _distanceToBound;
-        _leftBoundX = _openZoneCords.position.x - _distanceToBound;
+        _distanceToBound = _openZoneCords.localScale.x / 2f;
+        _rightBoundX = _openZoneCords.position.x + _distanceToBound * 10f;
+        _leftBoundX = _openZoneCords.position.x - _distanceToBound * 10f;
     }
 
     private void Update()
     {
-        if (transform.position.x >= _leftBoundX && transform.position.x <= _rightBoundX)
+        if (_rectTransform.position.x >= _leftBoundX && _rectTransform.position.x <= _rightBoundX)
         {
             _isReadyToOpen = true;
         }
@@ -40,10 +41,12 @@ public class BookView : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (_isReadyToOpen)
+        if (!_scroller.IsScrolling && _isReadyToOpen)
         {
-            _pageSwiper.enabled = false;
+            Debug.Log("Sosal?");
+            _scroller.enabled = false;
             BookOpened?.Invoke();
+
             StartCoroutine(OpenBook());
         }
     }

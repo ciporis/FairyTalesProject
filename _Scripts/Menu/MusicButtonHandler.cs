@@ -1,11 +1,16 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MusicButtonHandler : MonoBehaviour
 {
     [SerializeField] private AudioSource _music;
-    [SerializeField] private ScriptableObject _mainMenuSettings;
 
     private bool _musicState;
+
+    private void Awake()
+    {
+        _musicState = MainMenu_Settings.MusicState;
+    }
 
     public void HandleClick()
     {
@@ -22,13 +27,13 @@ public class MusicButtonHandler : MonoBehaviour
     private void TurnOnMusic()
     {
         _music.Play();
-        
+        _musicState = true;
     }
 
     private void TurnOffMusic()
     {
         _music.Stop();
-        
+        _musicState = false;
     }
 
 }
