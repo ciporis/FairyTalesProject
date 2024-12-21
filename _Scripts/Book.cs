@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Book : MonoBehaviour
 {
-    [SerializeField] private BookView _bookView;
+    [SerializeField] private BookOpener _bookView;
 
     public string PrefabFairyTaleName;
 

@@ -299,7 +299,7 @@ RectTransform:
   m_LocalRotation: {x: 0.19509031, y: 0, z: 0, w: 0.98078537}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 80, y: 80, z: 80}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1637489561607647938}
   - {fileID: 631761722017215029}
@@ -308,7 +308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 22.5, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -80}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &846147384082415766
@@ -389,7 +389,10 @@ MonoBehaviour:
   _openZoneCords: {fileID: 5904807256328454358, guid: 1d90a20da031fd34b9bbe60dd3de8af5, type: 3}
   _scroller: {fileID: 3380365100062021725, guid: f919c651d7f69754fa99e0e8807c66db, type: 3}
   _rectTransform: {fileID: 2471759750211835236}
-  _bookCollider: {fileID: 846147384082415766}
+  _contentTransform: {fileID: 3380365100062021724, guid: f919c651d7f69754fa99e0e8807c66db, type: 3}
+  _scrollRect: {fileID: 251440162541222920, guid: 19af34d3549da7d4fa3a9c5f949335b9, type: 3}
+  _camera: {fileID: 6342498261259920296, guid: 40c703473325092418cfa1e71e570aae, type: 3}
+  _isReadyToOpen: 0
 --- !u!1 &5749037099942006951
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +604,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.9, y: -0.03}
+  m_AnchoredPosition: {x: -4.9, y: -0.029999971}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}

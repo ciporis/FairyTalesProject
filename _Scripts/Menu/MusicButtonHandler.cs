@@ -1,39 +1,45 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MusicButtonHandler : MonoBehaviour
 {
     [SerializeField] private AudioSource _music;
 
-    private bool _musicState;
+    [SerializeField] private Color _defaultColor;
+    [SerializeField] private Color _pressedColor;
 
-    private void Awake()
-    {
-        _musicState = MainMenu_Settings.MusicState;
-    }
+    [SerializeField] private Image _image;
 
     public void HandleClick()
     {
-        if (_musicState)
-        {
+        ChangeColor();
+        if (_music.mute == false)   
             TurnOffMusic();
-        }
         else
-        {
             TurnOnMusic();
-        }   
+    }
+
+    private void ChangeColor()
+    {
+        if (_image.color == _pressedColor)
+            _image.color = _defaultColor;
+        else
+            _image.color = _pressedColor;
+    }
+
+    private void Awake()
+    {
+        _image.color = _defaultColor;
     }
 
     private void TurnOnMusic()
     {
-        _music.Play();
-        _musicState = true;
+        _music.mute = false;
     }
 
     private void TurnOffMusic()
     {
-        _music.Stop();
-        _musicState = false;
+        _music.mute = true;
     }
 
 }
