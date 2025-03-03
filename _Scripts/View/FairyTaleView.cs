@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,37 +11,94 @@ public class FairyTaleView : MonoBehaviour
     [SerializeField] private Button _buttonPrevious;
     [SerializeField] private TextMeshProUGUI _slideText;
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private FairyTale_AudioModeHandler _audioModeHandler;
+    [SerializeField] private AudioModeHandler _audioModeHandler;
+    [SerializeField] private RecordingMode _recordingMode;
+    [SerializeField] private AudioRecordingsMode _audioRecordingMode;
+    [SerializeField] private Record _record;
+    [SerializeField] private Image _currentImage;
+    [SerializeField] private Image _currentBlur;
 
     private bool _audioModeState;
+    private bool _audioRecordingModeState;
 
-    private Image _currentImage;
-    private int _slideIndex;
-    private int _sentenceIndex;
-    private int _audioIndex;
+    private int _slideIndex = 0;
 
     private string _fairyTaleName;
+    private string _language;
 
     private string[] _sentences;
     private Sprite[] _slides;
     private AudioClip[] _audioClips;
+    private AudioClip[] _recordings;
 
+    private TextMeshProUGUI _text;
+
+    private Coroutine _waitingForAudioClipCoroutine;
+
+    public event Action<int> SlideIndexChanged;
+
+    private void Awake()
+    {
+        _buttonNext.onClick.AddListener(NextSlide);
+        _buttonPrevious.onClick.AddListener(PreviousSlide);
+
+        _fairyTaleName = BookData.FairyTaleName;
+        _language = BookData.Language;
+
+        _slides = ImagesParser.GetSlides(_fairyTaleName);
+        Debug.Log("slides");
+        _sentences = TextParser.GetParsedText(_fairyTaleName, _language);
+        Debug.Log("sentences");
+        _audioClips = AudioParser.GetAudioClips($"{_fairyTaleName}/Audio", _language);
+        _recordings = AudioParser.GetAudioClips($"{_fairyTaleName}/Recordings", _language);
+
+        _currentImage.sprite = _slides[_slideIndex];
+        _currentBlur.sprite = _slides[_slideIndex];
+        _slideText.text = _sentences[_slideIndex];
+        _audioSource.clip = _audioClips[_slideIndex];
+    }
 
     private void OnEnable()
     {
         _audioModeHandler.AudioModeChanged += SetCurrentAudioModeState;
+        _audioRecordingMode.OnAudioRecordingModeStateChanged += SetCurrentAudioRecordingModeState;
+        _record.RecordingAdded += GetCurrentRecordings;
     }
 
     private void OnDisable()
     {
-        _audioModeHandler.AudioModeChanged -= SetCurrentAudioModeState;
+        _audioModeHandler.AudioModeChanged -= SetCurrentAudioModeState; 
+        _audioRecordingMode.OnAudioRecordingModeStateChanged -= SetCurrentAudioRecordingModeState;
+        _record.RecordingAdded -= GetCurrentRecordings;
+    }
+
+    private void GetCurrentRecordings(int newRecordIndex, AudioClip clip)
+    {
+        _recordings[newRecordIndex] = clip;
+    }
+
+    private void SetCurrentAudioRecordingModeState(bool state)
+    {
+        _audioRecordingModeState = state;
+        if (_audioRecordingModeState == true)
+        {
+            if (_slideIndex >= _recordings.Length) return;
+            _audioSource.clip = _recordings[_slideIndex];
+            PlayCurrentAudioClip(); 
+        }
+        else
+            StopCurrentClip();
     }
 
     private void SetCurrentAudioModeState(bool audioModeState)
     {
         _audioModeState = audioModeState;
         if (_audioModeState == true)
-            PlayCurrentAudioClip();
+        {
+            _audioSource.clip = _audioClips[_slideIndex];
+            PlayCurrentAudioClip();        
+        }
+            
         else
             StopCurrentClip();
     }
@@ -48,64 +106,54 @@ public class FairyTaleView : MonoBehaviour
     private void StopCurrentClip()
     {
         _audioSource.Stop();
+        StopCoroutine(_waitingForAudioClipCoroutine);
     }
 
     private void PlayCurrentAudioClip()
     {
-        _audioSource.clip = _audioClips[_audioIndex];
-        _audioSource.Play();
-    }
-
-    private void Awake()
-    {
-        _buttonNext.onClick.AddListener(NextSlide);
-        _buttonPrevious.onClick.AddListener(PreviousSlide);
-        _currentImage = _canvas.GetComponent<Image>();
-
-        _fairyTaleName = BookData.FairyTaleName;
-
-        _sentences = TextParser.GetParsedText(_fairyTaleName);
-        _slides = ImagesParser.GetSlides(_fairyTaleName);
-        _audioClips = AudioParser.GetAudioClips(_fairyTaleName);
-
-        _currentImage.sprite = _slides[_slideIndex];
-        _slideText.text = _sentences[_sentenceIndex];
-        _audioSource.clip = _audioClips[_audioIndex];
+        _waitingForAudioClipCoroutine = StartCoroutine(PlayAudioClipInAudioMode(_audioSource.clip.length));
     }
 
     private void NextSlide()
     {
-        if (_slideIndex == _slides.Length - 1 || _sentenceIndex == _sentences.Length - 1 || _audioIndex == _audioClips.Length - 1)
-            return;
-
-        _slideIndex++;
-        _sentenceIndex++;
-        _audioIndex++;
-        _slideText.text = _sentences[_sentenceIndex];
-        _currentImage.sprite = _slides[_slideIndex];
-
-        if(_audioModeState == true)
-        {
-            _audioSource.clip = _audioClips[_audioIndex];
-            _audioSource.Play();
-        }
+        ChangeSlideData(1);
     }
  
     private void PreviousSlide()
     {
-        if (_slideIndex == 0 || _sentenceIndex == 0 || _audioIndex == 0)
+        ChangeSlideData(-1);
+    }
+
+    private void ChangeSlideData(int currentSlideDirection)
+    {
+        if((currentSlideDirection > 0 && _slideIndex + currentSlideDirection > _slides.Length - 1) || (currentSlideDirection < 0 && _slideIndex + currentSlideDirection < 0))
             return;
 
-        _slideIndex--;
-        _sentenceIndex--;
-        _audioIndex--;
-        _slideText.text = _sentences[_sentenceIndex];
+        _slideIndex += currentSlideDirection;
+
+        SlideIndexChanged?.Invoke(_slideIndex);
+
+        _slideText.text = _sentences[_slideIndex];
         _currentImage.sprite = _slides[_slideIndex];
+        _currentBlur.sprite = _slides[_slideIndex];
 
         if (_audioModeState == true)
         {
-            _audioSource.clip = _audioClips[_audioIndex];
-            _audioSource.Play();
+            _audioSource.clip = _audioClips[_slideIndex];
+            _waitingForAudioClipCoroutine = StartCoroutine(PlayAudioClipInAudioMode(_audioSource.clip.length));         
         }
+        if(_audioRecordingModeState == true)
+        {
+            if (_slideIndex >= _recordings.Length) return;
+            _audioSource.clip = _recordings[_slideIndex];
+            _waitingForAudioClipCoroutine = StartCoroutine(PlayAudioClipInAudioMode(_audioSource.clip.length));
+        }
+    }
+
+    private IEnumerator PlayAudioClipInAudioMode(float seconds)
+    {     
+        _audioSource.Play();
+        yield return new WaitForSeconds(seconds + 0.4f);
+        NextSlide();
     }
 }

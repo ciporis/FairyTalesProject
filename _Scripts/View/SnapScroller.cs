@@ -1,11 +1,7 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SnapScroller : MonoBehaviour
 {
-    [SerializeField] private int _booksCount;
-    [SerializeField] private float _spaceBetweenBooks;
     [SerializeField] private RectTransform _contentRectTransform;
     [SerializeField] private float _scrollingSpeed;
 
@@ -20,9 +16,9 @@ public class SnapScroller : MonoBehaviour
 
     private void Awake()
     {
-        _booksPositions = new Vector3[_booksCount];
+        _booksPositions = new Vector3[_books.Length];
 
-        for (int i = 0; i < _booksCount; i++)
+        for (int i = 0; i < _books.Length; i++)
         {
             if (i == 0) continue;
 
@@ -35,7 +31,7 @@ public class SnapScroller : MonoBehaviour
     private void FixedUpdate()
     {
         float closest = float.MaxValue;
-        for (int i = 0; i < _booksCount; i++)
+        for (int i = 0; i < _books.Length; i++)
         {
             float distance = Mathf.Abs(_contentRectTransform.anchoredPosition.x - _booksPositions[i].x);
 

@@ -1,6 +1,5 @@
-using UnityEngine;
-
-public static class BookData
+public class BookData
 {
     public static string FairyTaleName;
+    public static string Language;
 }
